@@ -20,9 +20,8 @@ public class TestListener implements ITestListener{
     Base base = new Base();
     @Override
     public void onFinish(ITestContext arg0) {
-        attachLogFile(arg0)
+        attachLogFile();
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -40,9 +39,10 @@ public class TestListener implements ITestListener{
     @Override
     public void onTestFailure(ITestResult arg0) {
         // TODO Auto-generated method stub
-    takeScreenshot(arg0);
+        takeScreenshot(arg0);
     }
     // Hàm takeScreenshot sẽ được thực thi sau khi mỗi testcase kết thúc (Với điều kiện testcase đó fail)
+    @AfterMethod
     public void takeScreenshot(ITestResult result) {
         try {
             if (ITestResult.FAILURE == result.getStatus() && base.driver != null) {
@@ -84,16 +84,17 @@ public class TestListener implements ITestListener{
         // TODO Auto-generated method stub
 
     }
+    @AfterTest
     public void attachLogFile() {
         try {
             String projectPath = System.getProperty("user.dir");
-            String propertiesFilePathRoot = "app-properties.log";
+            String propertiesFilePathRoot = "logs/app-properties.log";
             File logFile = new File(projectPath + "/" + propertiesFilePathRoot);
-
             // Kiểm tra và ghi log vào báo cáo Allure
             if (logFile.exists()) {
                 byte[] logBytes = FileUtils.readFileToByteArray(logFile);
                 attachLogToAllure(logBytes);
+                System.out.println("Đã đính kèm file");
             } else {
                 System.out.println("File log không tồn tại");
             }

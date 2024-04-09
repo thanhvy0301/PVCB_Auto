@@ -35450,3 +35450,26 @@ Chúng tôi xác nhận đã đọc, hiểu rõ và đồng ý với Bản đi�
 [INFO ] 09-04-2024 11:15:14 [main] Log - Step: clickButtonEndTran_SameAccount | Click kết thúc giao dịch
 [INFO ] 09-04-2024 11:15:17 [main] Log - Step: selectTabTypeTran | Chọn loại ck: CÙNG CHỦ TÀI KHOẢN
 [INFO ] 09-04-2024 11:15:18 [main] Log - Step: selectAccountNo | Chọn tk trích nợ: 107000486130
+[INFO ] 09-04-2024 11:42:56 [main] Log - Run TC-1
+[INFO ] 09-04-2024 11:42:58 [main] Log - Step: url | Khởi tạo đường dẫn: http://192.168.1.232:7080/corp/
+[INFO ] 09-04-2024 11:42:58 [main] Log - Step: enterUsername | Nhập username 10500015_dchecker1
+[INFO ] 09-04-2024 11:42:58 [main] Log - Step: enterPassword | Nhập username 0000
+[INFO ] 09-04-2024 11:43:08 [main] Log - Step: clickButtonLogin | Nhấn vào button đăng nhập
+[INFO ] 09-04-2024 11:45:06 [main] Log - Run TC-1
+[INFO ] 09-04-2024 11:45:08 [main] Log - Step: url | Khởi tạo đường dẫn: http://192.168.1.232:7080/corp/
+[INFO ] 09-04-2024 11:45:08 [main] Log - Step: enterUsername | Nhập username 10500015_dchecker1
+[INFO ] 09-04-2024 11:45:08 [main] Log - Step: enterPassword | Nhập username 111111
+[INFO ] 09-04-2024 11:45:21 [main] Log - Step: clickButtonLogin | Nhấn vào button đăng nhập
+[INFO ] 09-04-2024 11:45:21 [main] Log - Click vào menu cấp 1: [[ChromeDriver: chrome on windows (16e9c5be6c0ec218560131504d83b9ef)] -> xpath: //a[@href='#'][contains(.,'Giao dịch')]]
+[INFO ] 09-04-2024 11:45:21 [main] Log - Click vào menu cấp 2: [[ChromeDriver: chrome on windows (16e9c5be6c0ec218560131504d83b9ef)] -> xpath: //a[contains(.,'Chuyển khoản')]]
+[INFO ] 09-04-2024 11:45:21 [main] Log - Click vào menu cấp 3: [[ChromeDriver: chrome on windows (16e9c5be6c0ec218560131504d83b9ef)] -> link text: Chuyển Khoản Trong Hệ Thống]
+[INFO ] 09-04-2024 11:45:22 [main] Log - Chuyển sang frame
+[INFO ] 09-04-2024 11:45:23 [main] Log - Step: selectTabTypeTran | Chọn loại ck: CÙNG CHỦ TÀI KHOẢN
+[INFO ] 09-04-2024 11:45:23 [main] Log - Step: selectAccountNo | Chọn tk trích nợ: 107000486130
+[INFO ] 09-04-2024 11:45:25 [main] Log - Step: selectReceiveAccount_SameAccount | Chọn tk nhận: 102000856469
+[INFO ] 09-04-2024 11:45:29 [main] Log - Step: enterAmount_SameAccount | Nhập số tiền: 10000
+[INFO ] 09-04-2024 11:45:31 [main] Log - Step: enterAmount_SameAccount | Số tiền bằng chữ: MƯỜI NGHÌN VIỆT NAM ĐỒNG
+[INFO ] 09-04-2024 11:45:32 [main] Log - Step: enterContentTran_SameAccount | Nhập nội dung: Chuyển khoản trong hệ thống
+[INFO ] 09-04-2024 11:45:33 [main] Log - Step: tickAgreeCondition_SameAccount | Đã tick vào đồng ý điều khoản
+[INFO ] 09-04-2024 11:45:34 [main] Log - Step: clickBtnContinueS1_SameAccount | Nhấn tiếp tục để sang bước 2 (Cùng chủ)
+[INFO ] 09-04-2024 11:45:34 [main] Log - Verify nội dung chuyển khoản ở b2

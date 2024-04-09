@@ -33,6 +33,8 @@ build/
 
 ### VS Code ###
 .vscode/
-
+.idea
+allure-results
+logs
 ### Mac OS ###
 .DS_Store

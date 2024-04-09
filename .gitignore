@@ -34,8 +34,8 @@ build/
 ### VS Code ###
 .vscode/
 .idea
-allure-results
+allure-results/
 logs
-test-output
+test-output/
 ### Mac OS ###
 .DS_Store

@@ -1,7 +1,6 @@
 package seatech.common.config;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class PropertiesFile {
@@ -12,15 +11,18 @@ public class PropertiesFile {
     //Lấy đường dẫn đến project hiện tại
     static String projectPath = System.getProperty("user.dir") + "/";
     //Tạo đường dẫn đến file configs.properties mặc định
-    private static String propertiesFilePathRoot = "src/main/resources/config.properties";
+    //private static String propertiesFilePathRoot = "src/main/resources/config.properties";
 
     public static void setPropertiesFile() {
         properties = new Properties();
         try {
-            //Khởi tạo giá trị cho đối tượng của class FileInputStream
-            fileIn = new FileInputStream(projectPath + propertiesFilePathRoot);
-            //Load properties file
-            properties.load(fileIn);
+            // Load properties file directly from resources
+            InputStream inputStream = PropertiesFile.class.getResourceAsStream("/config.properties");
+            if (inputStream != null) {
+                properties.load(inputStream);
+            } else {
+                throw new FileNotFoundException("config.properties not found in the classpath");
+            }
         } catch (Exception exp) {
             System.out.println(exp.getMessage());
             System.out.println(exp.getCause());
@@ -47,12 +49,22 @@ public class PropertiesFile {
     //Xây dựng hàm Set Value với Key tương ứng vào trong file properties đã setup bên trên
     public static void setPropValue(String KeyProp, String Value) {
         try {
-            //Khởi tạo giá trị cho đối tượng của class FileOutputStream
-            fileOut = new FileOutputStream(projectPath + propertiesFilePathRoot);
-            //Load properties file hiện tại và thực hiện mapping value với key tương ứng
+            // Load properties file
+            InputStream inputStream = PropertiesFile.class.getResourceAsStream("/config.properties");
+            if (inputStream != null) {
+                properties.load(inputStream);
+                inputStream.close();
+            } else {
+                throw new FileNotFoundException("config.properties not found in the classpath");
+            }
+            // Update property
             properties.setProperty(KeyProp, Value);
-            //Lưu key và value vào properties file
-            properties.store(fileOut, "Set new value in properties file");
+
+            // Save properties file
+            OutputStream outputStream = new FileOutputStream(new File(PropertiesFile.class.getResource("/config.properties").toURI()));
+            properties.store(outputStream, "Set new value in properties file");
+            outputStream.close();
+
             System.out.println("Set new value in file properties success.");
         } catch (Exception exp) {
             System.out.println(exp.getMessage());
@@ -60,4 +72,5 @@ public class PropertiesFile {
             exp.printStackTrace();
         }
     }
+
 }

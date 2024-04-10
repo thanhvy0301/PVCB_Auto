@@ -1,6 +1,5 @@
 package seatech.common.functions;
 
-import io.qameta.allure.Attachment;
 import org.openqa.selenium.*;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.PageFactory;

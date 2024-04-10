@@ -1,7 +1,5 @@
 package seatech.common.functions;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -56,16 +54,6 @@ public class AllureListeners implements ITestListener {
 
     }
     //Text attachments for Allure
-        @Attachment(value = "{0}", type = "text/plain")
-        public static String saveTextLog(String message) {
-            return message;
-        }
-
-        //HTML attachments for Allure
-        @Attachment(value = "{0}", type = "text/html")
-        public static String attachHtml(String html) {
-            return html;
-        }
 
 }
 

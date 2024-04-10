@@ -324,8 +324,6 @@ public class ReadExcelFile_Napas247 {
             driver.switchTo().defaultContent();
             driver.findElement(By.xpath("//a[@class='al-close al-ok-btn'][contains(.,'OK')]")).click();
             Log.info("Step: "+action+" | "+ "Nhấn Ok alert lưu mẫu thành công");
-//                        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("tranFrame")));
-//                        Log.info("Chuyển sang frame");
         }catch (NoSuchElementException e){
             Log.error("Không tìm thấy nút Lưu nháp");
         }

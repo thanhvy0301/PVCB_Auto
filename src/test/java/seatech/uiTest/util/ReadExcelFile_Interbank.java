@@ -30,14 +30,50 @@ public class ReadExcelFile_Interbank{
     static String asTotalReceive;
     static String nameReceive_s2;
     static String bankReceive_s2;
-    static String stringNameAmount_s2;
+    static String stringAmount_s2;
+    static String accountNo_s3;
+    static String receiveAccount_s3;
+    static String nameReceiveAccount_s3;
+    static String amount_s3;
 
-    public static String getStringNameAmount_s2() {
-        return stringNameAmount_s2;
+    public static String getAccountNo_s3() {
+        return accountNo_s3;
     }
 
-    public static void setStringNameAmount_s2(String stringNameAmount_s2) {
-        ReadExcelFile_Interbank.stringNameAmount_s2 = stringNameAmount_s2;
+    public static void setAccountNo_s3(String accountNo_s3) {
+        ReadExcelFile_Interbank.accountNo_s3 = accountNo_s3;
+    }
+
+    public static String getReceiveAccount_s3() {
+        return receiveAccount_s3;
+    }
+
+    public static void setReceiveAccount_s3(String receiveAccount_s3) {
+        ReadExcelFile_Interbank.receiveAccount_s3 = receiveAccount_s3;
+    }
+
+    public static String getNameReceiveAccount_s3() {
+        return nameReceiveAccount_s3;
+    }
+
+    public static void setNameReceiveAccount_s3(String nameReceiveAccount_s3) {
+        ReadExcelFile_Interbank.nameReceiveAccount_s3 = nameReceiveAccount_s3;
+    }
+
+    public static String getAmount_s3() {
+        return amount_s3;
+    }
+
+    public static void setAmount_s3(String amount_s3) {
+        ReadExcelFile_Interbank.amount_s3 = amount_s3;
+    }
+
+    public static String getStringAmount_s2() {
+        return stringAmount_s2;
+    }
+
+    public static void setStringAmount_s2(String stringAmount_s2) {
+        ReadExcelFile_Interbank.stringAmount_s2 = stringAmount_s2;
     }
 
     public static String getBankReceive_s2() {
@@ -80,13 +116,6 @@ public class ReadExcelFile_Interbank{
         ReadExcelFile_Interbank.nameReceive_s2 = nameReceive_s2;
     }
 
-    public static String getContentTran() {
-        return contentTran;
-    }
-
-    public static void setContentTran(String contentTran) {
-        ReadExcelFile_Interbank.contentTran = contentTran;
-    }
 
     public static String getFee() {
         return fee;
@@ -191,14 +220,6 @@ public class ReadExcelFile_Interbank{
             throw new RuntimeException(e);
         }
     }
-    /*@Step
-    public void selectAccount_interBank(String action, String data) throws InterruptedException {
-        Select slAccount = new Select(driver.findElement(By.id("selectAccountNo")));
-        slAccount.selectByValue(data);
-        setAccountNo_interBank(data);
-        Log.info("Step: " + action + " | " + "Chọn tk trích nợ: " + data);
-        Thread.sleep(2000);
-    }*/
     @Step("Step: Enter receive account_interBank: {1}")
     public void enterReceiveAccount_interBank(String action, String data){
         try{
@@ -289,9 +310,8 @@ public class ReadExcelFile_Interbank{
                 txbContent.sendKeys(data);
                 String a = txbContent.getAttribute("value");
                 setContentTran_interBank(a);
-                Log.info("Set số tiền: "+getContentTran_interBank());
                 Thread.sleep(2000);
-                Log.info("Step: "+action+" | "+"Nhập nội dung chuyển khoản: "+data);
+                Log.info("Step: "+action+" | "+"Nhập nội dung chuyển khoản: "+getContentTran_interBank());
             }
         }catch (NoSuchElementException ignored){
             Log.info("Không tìm thấy ô nhập nội dung");
@@ -386,7 +406,7 @@ public class ReadExcelFile_Interbank{
             Thread.sleep(2000);
             try {
                 driver.switchTo().alert().accept();
-                Log.info("Alert message accepted.");
+                Log.info("Đã nhấn OK alert");
                 }
             catch (NoAlertPresentException ignored){}
             for (int item = 0; item < getDataList_interBank.size(); item++) {
@@ -415,44 +435,8 @@ public class ReadExcelFile_Interbank{
                     String txtErrContent = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[30]/td[2]")).getText();
                     Log.info("Step: " + action + " | " + "Hiển thị thông báo: " + txtErrContent);
                     break;
-                    }
                 }
-            /*WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            try {
-                Log.info("Hiển thị alert thông báo cutoff");
-                driver.switchTo().alert().accept();
-                Log.info("Nhấn Ok alert");
-            } catch (NoAlertPresentException e) {
-                Log.error("Khong hien thi alert");
             }
-            try{
-                for (int item = 0; item < getDataList_interBank.size(); item++) {
-                    String currentItem = getDataList_interBank.get(item);
-                    Log.info(currentItem);
-                    if (item == 0 && currentItem.isEmpty()) {
-                        String txtErrAccountNo = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[4]/td[2]/font[1]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrAccountNo); break;
-                    }else if (item == 1 && currentItem.isEmpty()) {
-                        String txtErrReceiveNo = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[6]/td[2]/font[1]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrReceiveNo); break;
-                    } else if (item == 2 && currentItem.isEmpty()) {
-                        String txtErrReceiveName = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[8]/td[2]/font[1]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrReceiveName); break;
-                    } else if (item == 3 && currentItem.isEmpty()) {
-                        String txtErrBankReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[19]/td[2]/font[1]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrBankReceive); break;
-                    }
-                    else if (item == 4 && currentItem.isEmpty()) {
-                        String txtErrAmount = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[20]/td[2]/div[2]/font[1]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrAmount); break;
-                    }else if (item == 5 && currentItem.isEmpty()) {
-                        String txtErrContent = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[30]/td[2]")).getText();
-                        Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrContent); break;
-                    }
-                }
-            }catch (NoSuchElementException ignored) {
-                Log.error("Không tìm thấy:");
-            }*/
         } catch (NoSuchElementException | InterruptedException e) {
             Log.error("Không tìm thấy nút Tiếp tục");
         }
@@ -461,7 +445,7 @@ public class ReadExcelFile_Interbank{
     public void clickBtnContinueS2_interBank(String action){
         Log.info("Verify nội dung chuyển khoản ở b2");
         try {
-            /*String txtAccountNo = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[3]/td[2]")).getText();
+            String txtAccountNo = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[3]/td[2]")).getText();
             Log.info("Step: " + action + " | " + "Tài khoản trích nợ: " + txtAccountNo);
             softAssert.assertEquals(txtAccountNo, getAccountNo_interBank());
             setAccountNo_s2(txtAccountNo);
@@ -476,12 +460,12 @@ public class ReadExcelFile_Interbank{
             String txtNameReceive = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[5]/td[2]")).getText();
             softAssert.assertEquals(txtNameReceive, getReceiveName());
             setNameReceive_s2(txtNameReceive);
-            Log.info("Verify số tiền: " + txtNameReceive + " | " + getNameReceive_s2());
+            Log.info("Verify tên người thụ hưởng: " + txtNameReceive + " | " + getNameReceive_s2());
 
             String txtBankName = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[6]/td[2]")).getText();
             softAssert.assertEquals(txtBankName, getBankReceive());
             setBankReceive_s2(txtBankName);
-            Log.info("Verify số tiền: " + txtBankName + " | " + getBankReceive_s2());
+            Log.info("Verify ngân hàng thụ hưởng: " + txtBankName + " | " + getBankReceive_s2());
 
             String txtAmount = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[7]/td[2]")).getText();
             softAssert.assertEquals(txtAmount, getAmount());
@@ -498,17 +482,18 @@ public class ReadExcelFile_Interbank{
 
             String asStringAmount = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[10]/td[2]")).getText();
             softAssert.assertEquals(asStringAmount, getStringAmount());
-            setStringNameAmount_s2(asStringAmount);
-            Log.info("Verify số tiền bằng chữ: " + asStringAmount + " | " + getStringNameAmount_s2());
+            setStringAmount_s2(asStringAmount);
+            Log.info("Verify số tiền bằng chữ: " + asStringAmount + " | " + getStringAmount_s2());
 
-            String asTotalReceive = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[10]/td[2]")).getText();
+            String asTotalReceive = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[11]/td[2]")).getText();
             setAsTotalReceive(asTotalReceive);
             Log.info("Số tiền thực nhận: " + asTotalReceive);
 
-            String asStringContent = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[11]/td[2]")).getText();
+            String asStringContent = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[12]/td[2]")).getText();
             softAssert.assertEquals(asStringContent, getContentTran_interBank());
             setContentTran_s2(asStringContent);
-            Log.info("Verify nội dung chuyển khoản: " + asStringContent + " | " + getContentTran_s2());*/
+            Log.info("Verify nội dung chuyển khoản: " + asStringContent + " | " + getContentTran_s2());
+
             driver.findElement(By.id("submit1")).click();
             Log.info("Step: " + action + " | " + "Click tiếp tục sang bước 3");
             Thread.sleep(3000);
@@ -519,41 +504,55 @@ public class ReadExcelFile_Interbank{
     @Step("Step: Click button to end trans")
     public  void clickButtonEndTran_interBank(String action){
         //ReadExcelFile_InternalBank instance = new ReadExcelFile_InternalBank(driver);
-        /*try {
-            Log.info("Verify nội dung chuyển khoản ở bước 3");
-            String asAccountNo = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[3]/td[2]")).getText();
-            Assert.assertEquals(asAccountNo, getAccountNo_s3());
-            Log.info("Verify tài khoản trích nợ: " + asAccountNo + " | " + getAccountNo_s3());
+        Log.info("Verify nội dung chuyển khoản ở bước 3");
+        try {
+            String idTran = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[2]")).getText();
+            Log.info("Số hiệu giao dịch: " + idTran);
 
-            String asAccountReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[4]/td[2]")).getText();
-            Assert.assertEquals(asAccountReceive, getReceiveAccount_s3());
-            Log.info("Verify tài khoản thụ hưởng: " + asAccountReceive + " | " + getReceiveAccount_s3());
+            String asAccountNo = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[4]/td[2]")).getText();
+            softAssert.assertEquals(asAccountNo, getAccountNo_s2());
+            Log.info("Verify tài khoản trích nợ: " + asAccountNo + " | " + getAccountNo_s2());
 
-            String asNameAccountReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[5]/td[2]")).getText();
-            Assert.assertEquals(asNameAccountReceive, getNameReceiveAccount_s3());
-            Log.info("Verify tên nguười thụ hưởng: " + asNameAccountReceive + " | " + getNameReceiveAccount_s3());
+            String asAccountReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[5]/td[2]")).getText();
+            Assert.assertEquals(asAccountReceive, getReceiveAccount_s2());
+            Log.info("Verify tài khoản thụ hưởng: " + asAccountReceive + " | " + getReceiveAccount_s2());
 
-            String asAmount = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[7]/td[2]")).getText();
-            Assert.assertEquals(asAmount, getAmount_s3());
-            Log.info("Verify số tiền: " + asAmount + " | " + getAmount_s3());
+            String asNameAccountReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[6]/td[2]")).getText();
+            Assert.assertEquals(asNameAccountReceive, getNameReceive_s2());
+            Log.info("Verify tên người thụ hưởng: " + asNameAccountReceive + " | " + getNameReceive_s2());
 
-            String asFee = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[8]/td[2]")).getText();
-            Assert.assertEquals(asFee, getFee());
+            String txtBankName = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[7]/td[2]")).getText();
+            softAssert.assertEquals(txtBankName, getBankReceive_s2());
+            Log.info("Verify ngân hàng thụ hưởng: " + txtBankName + " | " + getBankReceive_s2());
+
+            String asAmount = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[8]/td[2]")).getText();
+            softAssert.assertEquals(asAmount, getAmount_s2());
+            Log.info("Verify số tiền: " + asAmount + " | " + getAmount_s2());
+
+            String asFee = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[9]/td[2]")).getText();
+            softAssert.assertEquals(asFee, getFee());
             Log.info("Verify Phí giao dịch: " + asFee + " | " + getFee());
 
-            String asTotal = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[9]/td[2]")).getText();
-            Assert.assertEquals(asTotal, getAsTotal_s3());
-            Log.info("Verify Số tiền trích nợ: " + asTotal + " | " + getAsTotal_s3());
+            String asTotal = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[10]/td[2]")).getText();
+            Assert.assertEquals(asTotal, getAsTotal_s2());
+            Log.info("Verify Số tiền trích nợ: " + asTotal + " | " + getAsTotal_s2());
 
-            String asTotalReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[11]/td[2]")).getText();
-            Assert.assertEquals(asTotalReceive, getAsTotalReceive());
+            String asStringAmount = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[11]/td[2]")).getText();
+            softAssert.assertEquals(asStringAmount, getStringAmount_s2());
+            Log.info("Verify Số tiền bằng chữ: " + asFee + " | " + getFee());
+
+            String asTotalReceive = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[12]/td[2]")).getText();
+            softAssert.assertEquals(asTotalReceive, getAsTotalReceive());
             Log.info("Số tiền thực nhận: " + asTotalReceive + " | " + getAsTotalReceive());
 
-            String asStringContent = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[12]/td[2]")).getText();
-            Assert.assertEquals(asStringContent, getContentTran_s3());
-            Log.info("Verify nội dung chuyển khoản: " + asStringContent + " | " + getContentTran_s3());
+            String asStringContent = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[13]/td[2]")).getText();
+            Assert.assertEquals(asStringContent, getContentTran_s2());
+            Log.info("Verify nội dung chuyển khoản: " + asStringContent + " | " + getContentTran_s2());
+
+            String stringStatusTrans = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[14]/td[2]")).getText();
+            Log.info("Verify nội dung chuyển khoản: " +stringStatusTrans);
         } catch (NoSuchElementException e) {
-        }*/
+        }
         try {
             driver.findElement(By.xpath("//input[@value='Kết thúc']")).click();
             Log.info("Step: " + action + " | " + "Nhấn nút Kết thúc ở bước 3");

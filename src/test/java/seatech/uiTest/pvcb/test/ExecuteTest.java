@@ -45,7 +45,7 @@ public class ExecuteTest extends Base{
         ReadExcelFile_Napas247 napas247= new ReadExcelFile_Napas247(driver);
         napas247.startExecution("247");
     }
-    @Step("Run file")
+    @Step("Chuyển khoản ngoài hệ thống")
     @Test( testName = "TC-2", priority = 3)
     public void Ck_NgoaiHT() throws InterruptedException {
         Log.info("Run TC-1");

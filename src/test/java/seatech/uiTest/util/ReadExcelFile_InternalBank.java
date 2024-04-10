@@ -156,12 +156,12 @@ public class ReadExcelFile_InternalBank {
     public  void setContentTran(String contentTran) {
         this.contentTran = contentTran;
     }
-    @Step("Test: Step enter Url: {0}")
+    @Step("Step: Enter Url: {0}")
     public void enterUrl(String action, String data){
         driver.get(data);
         Log.info("Step: " + action + " | " + "Khởi tạo đường dẫn: " + data);
     }
-    @Step("Test: Step enter Username")
+    @Step("Step: Enter Username")
     public void enterUserName(String action, String data){
         try {
             driver.findElement(By.id("t_userName")).sendKeys(data);
@@ -170,7 +170,7 @@ public class ReadExcelFile_InternalBank {
             Log.error("Không tìm thấy username");
         }
     }
-    @Step("Test: Step enter Password")
+    @Step("Step: Enter Password")
     public void enterPassword(String action, String data) throws InterruptedException {
         try {
             driver.findElement(By.id("t_password")).sendKeys(data);
@@ -180,7 +180,7 @@ public class ReadExcelFile_InternalBank {
             Log.error("Không tìm thấy password");
         }
     }
-    @Step("Test: Click button to Login")
+    @Step("Step: Click button to Login")
     public void btnLogin(String action){
         try {
             if (action.equalsIgnoreCase("clickButtonLogin")) {
@@ -220,7 +220,7 @@ public class ReadExcelFile_InternalBank {
             Log.error("Không tìm thấy nút Đăng nhập");
         }
     }
-    @Step("Test: Click verify OTP Later")
+    @Step("Step: Click verify OTP Later")
     public void clickVerifyOTPLater(String action) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement displayHome = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//header/div[1]/div[2]/div[2]/div[2]/span[1]")));
@@ -229,7 +229,7 @@ public class ReadExcelFile_InternalBank {
         Log.info("Step: " + action + " | " + "Nhấn vào button kích hoạt smart OTP sau");
         Thread.sleep(3000);
     }
-    @Step("Test: Navigate to Menu")
+    @Step("Step: Navigate to Menu")
     public  void navigateMenu(String action, String data){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         if (action.equalsIgnoreCase("navigateMenu")) {
@@ -713,7 +713,7 @@ public class ReadExcelFile_InternalBank {
         } catch (NoSuchElementException | InterruptedException ignored) {
         }
     }
-    @Step("Test: Click button continue to step 2_Diff Account")
+    @Step("Step: Click button continue to step 2_Diff Account")
     public  void clickBtnContinueS1_DiffAccount(String action){
         //ReadExcelFile_InternalBank instance = new ReadExcelFile_InternalBank(driver);
         try {

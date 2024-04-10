@@ -314,6 +314,9 @@ public class Keywords {
                 case "clickBtnCancelCloseDialogSaveTrans":
                     napas247.clickBtnCancelCloseDialogSaveTrans(action);
                     break;
+                case "clickOkSaveTemplateTrans_247":
+                    napas247.clickOkSaveTemplateTrans_247(action, data);
+                    break;
                     //===========================================NGOÀI HỆ THỐNG====================================
                 case "selectAccountNo_interBank":
                     interbank.selectAccountNo_interBank(action,data);
@@ -327,7 +330,7 @@ public class Keywords {
                 case "selectBankNo_interBank":
                     interbank.selectBankNo_interBank(action, data);
                     break;
-                case"enterAmount_interBank":
+                case "enterAmount_interBank":
                     interbank.enterAmount_interBank(action, data);
                     break;
                 case "enterContent_interBank":

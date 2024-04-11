@@ -1,6 +1,5 @@
-package seatech.uiTest.util;
+package seatech.common.config;
 
-import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,13 +47,5 @@ public class Log {
     }
     public static void debug (Object object) {
         Log.debug(object);
-    }
-    @Attachment(value = "TEST HTML LOG", type = "text/html")
-    private byte[] appendLogToAllure(File file) {
-        try {
-            return FileUtils.readFileToByteArray(file);
-        } catch (IOException ignored) {
-        }
-        return null;
     }
 }

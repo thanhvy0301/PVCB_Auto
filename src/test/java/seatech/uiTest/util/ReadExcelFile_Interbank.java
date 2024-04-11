@@ -7,21 +7,33 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import seatech.common.config.Log;
+import seatech.uiTest.pvcb.data.InterbankData;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadExcelFile_Interbank{
+public class ReadExcelFile_Interbank extends InterbankData {
     WebDriver driver;
     public ReadExcelFile_Interbank(WebDriver driver){
         this.driver =driver;
     }
     static SoftAssert softAssert = new SoftAssert();
-    static String accountNo_interBank;
+   /* static String accountNo_interBank;
     static String receiveAccount;
     static  String receiveName;
     static String stringAmount;
+    static String receiveBank;
+
+    public static String getReceiveBank() {
+        return receiveBank;
+    }
+
+    public static void setReceiveBank(String receiveBank) {
+        ReadExcelFile_Interbank.receiveBank = receiveBank;
+    }
+
     static String accountNo_s2;
     static String amount_s2;
     static String fee;
@@ -31,42 +43,6 @@ public class ReadExcelFile_Interbank{
     static String nameReceive_s2;
     static String bankReceive_s2;
     static String stringAmount_s2;
-    static String accountNo_s3;
-    static String receiveAccount_s3;
-    static String nameReceiveAccount_s3;
-    static String amount_s3;
-
-    public static String getAccountNo_s3() {
-        return accountNo_s3;
-    }
-
-    public static void setAccountNo_s3(String accountNo_s3) {
-        ReadExcelFile_Interbank.accountNo_s3 = accountNo_s3;
-    }
-
-    public static String getReceiveAccount_s3() {
-        return receiveAccount_s3;
-    }
-
-    public static void setReceiveAccount_s3(String receiveAccount_s3) {
-        ReadExcelFile_Interbank.receiveAccount_s3 = receiveAccount_s3;
-    }
-
-    public static String getNameReceiveAccount_s3() {
-        return nameReceiveAccount_s3;
-    }
-
-    public static void setNameReceiveAccount_s3(String nameReceiveAccount_s3) {
-        ReadExcelFile_Interbank.nameReceiveAccount_s3 = nameReceiveAccount_s3;
-    }
-
-    public static String getAmount_s3() {
-        return amount_s3;
-    }
-
-    public static void setAmount_s3(String amount_s3) {
-        ReadExcelFile_Interbank.amount_s3 = amount_s3;
-    }
 
     public static String getStringAmount_s2() {
         return stringAmount_s2;
@@ -107,16 +83,12 @@ public class ReadExcelFile_Interbank{
     public static void setAsTotalReceive(String asTotalReceive) {
         ReadExcelFile_Interbank.asTotalReceive = asTotalReceive;
     }
-
     public static String getNameReceive_s2() {
         return nameReceive_s2;
     }
-
     public static void setNameReceive_s2(String nameReceive_s2) {
         ReadExcelFile_Interbank.nameReceive_s2 = nameReceive_s2;
     }
-
-
     public static String getFee() {
         return fee;
     }
@@ -164,14 +136,6 @@ public class ReadExcelFile_Interbank{
         ReadExcelFile_Interbank.accountNo_interBank = accountNo_interBank;
     }
 
-    public static String getBankReceive() {
-        return bankReceive;
-    }
-
-    public static void setBankReceive(String bankReceive) {
-        ReadExcelFile_Interbank.bankReceive = bankReceive;
-    }
-
     static String bankReceive;
 
     public String getReceiveName() {
@@ -205,8 +169,8 @@ public class ReadExcelFile_Interbank{
     }
     public  void setContentTran_interBank(String contentTran) {
         ReadExcelFile_Interbank.contentTran = contentTran;
-    }
-    @Step("Step: Select Account number")
+    }*/
+    @Step("Step: Select Account number: {1}")
     public  void selectAccountNo_interBank(String action, String data){
         try {
             Select boxAccountNo = new Select(driver.findElement(By.id("selectAccountNo")));
@@ -214,6 +178,36 @@ public class ReadExcelFile_Interbank{
             setAccountNo_interBank(data);
             Log.info("Step: " + action + " | " + "Chọn tk trích nợ: " + getAccountNo_interBank());
             Thread.sleep(2000);
+        } catch (NoSuchElementException e) {
+            Log.error("Không tìm thấy ô chọn TK Trích nợ");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Step("Step: Select Account number: {1}")
+    public  void selectReceiveAccount_interBank(String action, String data){
+        try {
+            Select boxReceiveNo = new Select(driver.findElement(By.id("tktcccSelect")));
+            boxReceiveNo.selectByValue(data);
+            setReceiveAccount(data);
+            Log.info("Step: " + action + " | " + "Chọn tk thụ hưởng: " + getReceiveAccount());
+            Thread.sleep(2000);
+            try {
+                WebElement nameReceive = driver.findElement(By.id("labelBeneficiaryName"));
+                String name = nameReceive.getText();
+                setReceiveName(name);
+                Log.info("Tên người thụ hưởng: "+ getReceiveName());
+            }catch (NoSuchElementException e){
+                Log.error("Không tìm thấy tên người thụ hưởng");
+            }
+            try{
+                WebElement bankReceive = driver.findElement(By.xpath("//tbody/tr[18]/td[2]/div[1]/span[1]/span[1]/span[1]/span[1]/span[2]"));
+                String bank = bankReceive.getText();
+                setReceiveBank(bank);
+                Log.info("Ngân hàng thụ hưởng: "+ getReceiveBank());
+            }catch (NoSuchElementException e){
+                Log.info("Không tìm thấy ngân hàng thụ hưởng");
+            }
         } catch (NoSuchElementException e) {
             Log.error("Không tìm thấy ô chọn TK Trích nợ");
         } catch (InterruptedException e) {
@@ -248,7 +242,7 @@ public class ReadExcelFile_Interbank{
                 setReceiveName(a);
                 Log.info("Set tên người thụ hưởng: "+getReceiveName());
                 Thread.sleep(2000);
-                Log.info("Step: "+action+" | "+"Nhập tài khoản thụ hưởng: "+data);
+                Log.info("Step: "+action+" | "+"Nhập tên người thụ hưởng: "+data);
             }
         }catch (NoSuchElementException ignored){} catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -263,8 +257,8 @@ public class ReadExcelFile_Interbank{
             try{
                 Select boxAccountNo = new Select(driver.findElement(By.id("correspondentBank")));
                 boxAccountNo.selectByVisibleText(data);
-                setBankReceive(data);
-                Log.info("Step: "+action+" | "+"Chọn ngân hàng thụ hưởng: "+data);
+                setReceiveBank(data);
+                Log.info("Step: "+action+" | "+"Chọn ngân hàng thụ hưởng: "+getReceiveBank());
                 Thread.sleep(2000);
             }catch (NoSuchElementException ignored){
             } catch (InterruptedException e) {
@@ -279,8 +273,8 @@ public class ReadExcelFile_Interbank{
             if(txbAmount.isDisplayed()){
                 txbAmount.clear();
                 txbAmount.sendKeys(data);
-                String a = txbAmount.getAttribute("value");
-                setAmount(a);
+                String amount = txbAmount.getAttribute("value");
+                setAmount(amount);
                 Log.info("Set số tiền: "+getAmount());
                 Thread.sleep(2000);
                 Log.info("Step: "+action+" | "+"Nhập số tiền: "+data);
@@ -308,10 +302,19 @@ public class ReadExcelFile_Interbank{
             if(txbContent.isDisplayed()){
                 txbContent.clear();
                 txbContent.sendKeys(data);
-                String a = txbContent.getAttribute("value");
-                setContentTran_interBank(a);
                 Thread.sleep(2000);
-                Log.info("Step: "+action+" | "+"Nhập nội dung chuyển khoản: "+getContentTran_interBank());
+                /*try {
+                    Alert alert = driver.switchTo().alert();
+                    String alertText = alert.getText();
+                    Log.info("Alert text: " + alertText);
+                    alert.accept();
+                    Log.info("Nhấn Ok alert");
+                } catch (NoAlertPresentException e) {}
+                Thread.sleep(1000);*/
+                String con = txbContent.getAttribute("value");
+                setContentTran(con);
+                Thread.sleep(2000);
+                Log.info("Step: "+action+" | "+"Nhập nội dung chuyển khoản: "+getContentTran());
             }
         }catch (NoSuchElementException ignored){
             Log.info("Không tìm thấy ô nhập nội dung");
@@ -319,7 +322,6 @@ public class ReadExcelFile_Interbank{
             throw new RuntimeException(e);
         }
     }
-
     @Step ("Step: Tick agree condition_interBank")
     public void tickAgreeCondition_interBank(String action){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -385,6 +387,7 @@ public class ReadExcelFile_Interbank{
             driver.findElement(By.id("submitInBeneficiary")).click();
             Log.info("Step: " + action + " | " + "Nhấn Tiếp tuc");
             Thread.sleep(2000);
+            setInfoReceive(action);
         } catch (NoSuchElementException e) {
             Log.error("Không tìm thấy nút Chọn Lưu người thụ hưởng");
         } catch (InterruptedException e) {
@@ -398,16 +401,16 @@ public class ReadExcelFile_Interbank{
             getDataList_interBank.add(getAccountNo_interBank());
             getDataList_interBank.add(getReceiveAccount());
             getDataList_interBank.add(getReceiveName());
-            getDataList_interBank.add(getBankReceive());
+            getDataList_interBank.add(getReceiveBank());
             getDataList_interBank.add(getAmount());
-            getDataList_interBank.add(getContentTran_interBank());
+            getDataList_interBank.add(getContentTran());
             driver.findElement(By.id("submit1")).click();
             Log.info("Step: " + action + " | " + "Nhấn nút Tiếp tục sang buớc 2");
             Thread.sleep(2000);
             try {
                 driver.switchTo().alert().accept();
                 Log.info("Đã nhấn OK alert");
-                }
+            }
             catch (NoAlertPresentException ignored){}
             for (int item = 0; item < getDataList_interBank.size(); item++) {
                 String currentItem = getDataList_interBank.get(item);
@@ -441,9 +444,22 @@ public class ReadExcelFile_Interbank{
             Log.error("Không tìm thấy nút Tiếp tục");
         }
     }
+    @Step("Step: Display alert when click button continue")
+    public void clickBtnContinueS1_interBank_untickAlert(String action){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.findElement(By.id("submit1")).click();
+        Log.info("Step: " + action + " | " + "Nhấn nút Tiếp tục sang buớc 2");
+        driver.switchTo().defaultContent();
+        Log.info("Alert hiển thị thông báo: ");
+        driver.findElement(By.linkText("OK")).click();
+        Log.info("Nhấn ok alert");
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("tranFrame")));
+        Log.info("Chuyển sang tranFrame");
+    }
     @Step("Step: Verify data trans_Step 2")
-    public void clickBtnContinueS2_interBank(String action){
+    public void clickBtnContinueS2_interBank(String action) throws InterruptedException {
         Log.info("Verify nội dung chuyển khoản ở b2");
+        Thread.sleep(2000);
         try {
             String txtAccountNo = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[3]/td[2]")).getText();
             Log.info("Step: " + action + " | " + "Tài khoản trích nợ: " + txtAccountNo);
@@ -463,7 +479,7 @@ public class ReadExcelFile_Interbank{
             Log.info("Verify tên người thụ hưởng: " + txtNameReceive + " | " + getNameReceive_s2());
 
             String txtBankName = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[6]/td[2]")).getText();
-            softAssert.assertEquals(txtBankName, getBankReceive());
+            softAssert.assertEquals(txtBankName, getReceiveBank());
             setBankReceive_s2(txtBankName);
             Log.info("Verify ngân hàng thụ hưởng: " + txtBankName + " | " + getBankReceive_s2());
 
@@ -490,7 +506,7 @@ public class ReadExcelFile_Interbank{
             Log.info("Số tiền thực nhận: " + asTotalReceive);
 
             String asStringContent = driver.findElement(By.xpath("//table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[12]/td[2]")).getText();
-            softAssert.assertEquals(asStringContent, getContentTran_interBank());
+            softAssert.assertEquals(asStringContent, getContentTran_s2());
             setContentTran_s2(asStringContent);
             Log.info("Verify nội dung chuyển khoản: " + asStringContent + " | " + getContentTran_s2());
 
@@ -502,9 +518,10 @@ public class ReadExcelFile_Interbank{
         }
     }
     @Step("Step: Click button to end trans")
-    public  void clickButtonEndTran_interBank(String action){
+    public  void clickButtonEndTran_interBank(String action) throws InterruptedException {
         //ReadExcelFile_InternalBank instance = new ReadExcelFile_InternalBank(driver);
         Log.info("Verify nội dung chuyển khoản ở bước 3");
+        Thread.sleep(2000);
         try {
             String idTran = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[2]")).getText();
             Log.info("Số hiệu giao dịch: " + idTran);
@@ -558,6 +575,25 @@ public class ReadExcelFile_Interbank{
             Log.info("Step: " + action + " | " + "Nhấn nút Kết thúc ở bước 3");
         } catch (NoSuchElementException e) {
             Log.error("Không tìm thấy nút Kết thúc");
+        }
+    }
+    public void setInfoReceive(String action){
+        try{
+            String txtRec = driver.findElement(By.id("beneficiaryAccount")).getAttribute("value");
+            setReceiveAccount(txtRec);
+        }catch (NoSuchElementException ignored){}
+        try{
+            String txtName = driver.findElement(By.id("beneficiaryName")).getAttribute("value");
+            setReceiveName(txtName);
+        }catch (NoSuchElementException ignored){}
+        try{
+            String bank = driver.findElement(By.id("select2-correspondentBank-container")).getText();
+            setReceiveBank(bank);
+            Log.info("Step: "+action+" | "+"Chọn ngân hàng thụ hưởng: "+bank);
+            Thread.sleep(2000);
+        }catch (NoSuchElementException ignored){}
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

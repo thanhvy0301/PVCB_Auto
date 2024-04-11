@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import seatech.common.config.Log;
 import seatech.common.config.PropertiesFile;
 
 import java.io.FileInputStream;
@@ -251,23 +252,6 @@ public class ReadExcelFile_Napas247 {
             Log.info("Step: "+action+" | "+"Nhấn tiếp tục để sang bước 2 (247)");
             Thread.sleep(2000);
         }catch (NoSuchElementException | InterruptedException e){}
-        /*try{
-                            Log.info("Vào try");
-                            for (int item = 0; item < getDataList_247AccountNo.size(); item++) {
-                                String currentItem = getDataList_247AccountNo.get(item);
-                                Log.info("Duyệt list "+currentItem);
-                                if (item == 0 && currentItem.isEmpty()) {
-                                    String txtErrAccountNo = driver.findElement(By.xpath("//tbody/tr[@id='errorSourceAccounttNull']/td[2]")).getText();
-                                    Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrAccountNo); break;
-                                }else if (item == 1 && currentItem.isEmpty()) {
-                                    String txtErrAmount = driver.findElement(By.xpath("//font[contains(text(),'Vui lòng nhập chính xác số tiền')]")).getText();
-                                    Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrAmount); break;
-                                } else if (item == 2 && currentItem.isEmpty()) {
-                                    String txtErrContent = driver.findElement(By.xpath("//td[contains(text(),'Vui lòng nhập Nội dung')]")).getText();
-                                    Log.info("Step: "+action+" | "+"Hiển thị thông báo: "+txtErrContent); break;
-                                }
-                            }
-                        }catch (NoSuchElementException ignored) {}break;*/
     }
     @Step("Step: Click to step 3")
     public void clickBtnContinueS2_247(String action){
@@ -303,19 +287,6 @@ public class ReadExcelFile_Napas247 {
             Log.error("Không tìm thấy Button Kết thúc");
         }
     }
-    /*@Step("Step: Click button to Logout: {0}")
-    public void clickAcceptLogout(String action){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try{
-            driver.switchTo().defaultContent();
-            driver.findElement(By.xpath("//a[contains(@onclick,'return lout();')]")).click();
-            Log.info("Step: "+action+" | "+ "Nhấn button Logout");
-            driver.switchTo().alert().accept();
-            wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.linkText("Đăng nhập tài khoản khác")))).click();
-        }catch (NoSuchElementException e){
-            Log.error("Không tìm thấy button Logout");
-        }
-    }*/
     @Step("Step: Save trans: {0}")
     public void saveTrans_247(String action){
         try{
@@ -369,7 +340,7 @@ public class ReadExcelFile_Napas247 {
             }
         }
     }
-    @Step("Step: Enter receive account_247 Account No {0}")
+    @Step("Step: Enter receive account_247 Account No {1}")
     public void enterReceiveAccount_247AccountNo(String action, String data){
         try{
             WebElement txbReceive = driver.findElement(By.id("accSML"));
@@ -383,7 +354,7 @@ public class ReadExcelFile_Napas247 {
             throw new RuntimeException(e);
         }
     }
-    @Step("Step:")
+    @Step("Step: Click button radio to save template: {1}")
     public void clickOkSaveTemplateTrans_247(String action, String data){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try{
@@ -409,7 +380,7 @@ public class ReadExcelFile_Napas247 {
             throw new RuntimeException(e);
         }
     }
-    @Step
+    @Step ("Step: Cick to choose receive account saved: {1}")
     public void chooseSaveReceiveAccount_247Card(String action, String data){
         try{
             driver.findElement(By.xpath("//tbody/tr[8]/td[2]/div[1]/span[1]")).click();
@@ -426,7 +397,7 @@ public class ReadExcelFile_Napas247 {
             throw new RuntimeException(e);
         }
     }
-    @Step("Step: Choose Saved Receive Account")
+    @Step("Step: Choose Saved Receive Account: {1}")
     public void chooseSaveReceiveAccount_247Account(String action, String data){
 
         try{

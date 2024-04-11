@@ -9,6 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
+import seatech.common.config.Log;
 import seatech.common.config.PropertiesFile;
 
 import java.io.FileInputStream;
@@ -321,6 +322,9 @@ public class Keywords {
                 case "selectAccountNo_interBank":
                     interbank.selectAccountNo_interBank(action,data);
                     break;
+                case "selectReceiveAccount_interBank":
+                    interbank.selectReceiveAccount_interBank(action, data);
+                    break;
                 case "enterReceiveAccount_interBank":
                     interbank.enterReceiveAccount_interBank(action,data);
                     break;
@@ -348,6 +352,9 @@ public class Keywords {
                 case "chooseSaveReceiveAccount_interBank":
                     interbank.chooseSaveReceiveAccount_interBank(action, data);
                     break;
+                case "clickBtnContinueS1_interBank_untickAlert":
+                    interbank.clickBtnContinueS1_interBank_untickAlert(action);
+                    break;
                 case "clickBtnContinueS1_interBank":
                     interbank.clickBtnContinueS1_interBank(action);
                     break;
@@ -356,6 +363,7 @@ public class Keywords {
                     break;
                 case"clickButtonEndTran_interBank":
                     interbank.clickButtonEndTran_interBank(action);
+                    break;
                 default:
                     break;
             }

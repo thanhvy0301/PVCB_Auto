@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import seatech.common.config.Log;
 
 import java.text.Normalizer;
 import java.time.Duration;
@@ -183,40 +184,15 @@ public class ReadExcelFile_InternalBank {
     @Step("Step: Click button to Login")
     public void btnLogin(String action){
         try {
-            if (action.equalsIgnoreCase("clickButtonLogin")) {
-                driver.findElement(By.xpath("//button[contains(.,'Đăng nhập')]")).click();
-                Log.info("Step: " + action + " | " + "Nhấn vào button đăng nhập");
-                       /* WebElement passwordErr = null;
-                        WebElement userNameErr = null;
-
-                        // Kiểm tra sự hiện diện của phần tử "passwordErr"
-                        try {
-                            passwordErr = driver.findElement(By.id("t_passwordErr"));
-                        } catch (NoSuchElementException e) {
-                            e.getMessage();
-                            // Nếu không tìm thấy, không cần làm gì cả
-                        }
-                        // Kiểm tra sự hiện diện của phần tử "userNameErr"
-                        try {
-                            userNameErr = driver.findElement(By.id("t_userNameErr"));
-                        } catch (NoSuchElementException e) {
-                            e.getMessage();
-                            // Nếu không tìm thấy, không cần làm gì cả
-                        }
-                        // Nếu cả hai phần tử không hiển thị, thực hiện nhấn vào nút đồng ý
-                        if (passwordErr == null && userNameErr == null) {*/
-                //lt<>empty
-                        /*try {
-                            WebElement button = driver.findElement(By.xpath("//input[contains(@name,'button')]"));
-                            if (button.isDisplayed()) {
-                                button.click(); // Click the button
-                                Log.info("Nhấn vào button đồng ý");
-                            }
-                        }catch (NoSuchElementException e){
-
-                            }*/
+            driver.findElement(By.xpath("//button[contains(.,'Đăng nhập')]")).click();
+            Log.info("Step: " + action + " | " + "Nhấn vào button đăng nhập");
+            try {
+                driver.findElement(By.xpath("//input[contains(@name,'button')]")).click();
+                Log.info("Nhấn vào button đồng ý");
+            } catch (NoSuchElementException e) {
+                Log.error("Không hiển thị trang session");
             }
-        } catch (NoSuchElementException e) {
+        }catch (NoSuchElementException e) {
             Log.error("Không tìm thấy nút Đăng nhập");
         }
     }

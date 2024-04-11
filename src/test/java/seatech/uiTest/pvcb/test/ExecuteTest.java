@@ -10,9 +10,8 @@ import org.testng.annotations.*;
 import seatech.common.baseBrowser.Base;
 import seatech.common.config.PropertiesFile;
 import seatech.uiTest.util.Keywords;
-import seatech.uiTest.util.ReadExcelFile_Interbank;
 import seatech.uiTest.util.ReadExcelFile_Napas247;
-import seatech.uiTest.util.Log;
+import seatech.common.config.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +28,6 @@ public class ExecuteTest extends Base{
         driver= init_driver(PropertiesFile.getPropValue("browser"));
         //driver.get(PropertiesFile.getPropValue("url"));//driver nào sẽ được sử dụng khi được lấy trong file config.properties với key là: browser
     }
-
     @Test( testName = "TC-1", priority = 1, enabled = false)
     @Step("Run file")
     @Severity(SeverityLevel.CRITICAL)
@@ -114,5 +112,4 @@ public class ExecuteTest extends Base{
         }
         return null;
     }
-
 }
